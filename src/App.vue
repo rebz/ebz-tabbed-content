@@ -1,28 +1,81 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <tab-content-area
+      :tabs="characters"
+      overflow-id="128391239"
+    >
+      <template #default="{ tabs, selectedTab, doSelectTab, isSelectedTab }">
+        <div class="content">
+          <div
+            class="tabs"
+            id="128391239"
+          >
+            <button
+              class="tab"
+              @click="doSelectTab(tab)"
+              v-for="(tab, index) in tabs"
+              :class="{ 'active' : isSelectedTab(tab) }"
+              :key="`tab-${index}`"
+            >
+              {{ tab.title }}
+            </button>
+          </div>
+          <div class="content">
+            {{ selectedTab.content }}
+          </div>
+        </div>
+      </template>
+    </tab-content-area>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import { TabContentArea } from './tabbed-content';
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
-    HelloWorld,
+    TabContentArea,
+  },
+  data() {
+    return {
+      characters: [
+        { title: 'bat', content: 'Batman' },
+        { title: 'spider', content: 'Spider-Man' },
+        { title: 'cat', content: 'Catwoman' },
+        { title: 'penguin', content: 'The Penguin' },
+      ],
+    };
+  },
+  methods: {
+    removeTab(index) {
+      console.info(index);
+    },
   },
 };
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+/* visual debugging - no dashed lines should be visible with renderless components only */
+#app * {
+  border: #000 dashed 1px;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  position: relative;
 }
+.active {
+  background: hotpink;
+  color: white;
+}
+.tabs {
+  display: flex;
+  flex-direction: row;
+}
+/* #app *:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: ''
+} */
 </style>

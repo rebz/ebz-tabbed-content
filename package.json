@@ -35,10 +35,9 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
+      "plugin:vue/strongly-recommended",
       "@vue/airbnb"
     ],
-    "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
     }
@@ -81,9 +80,6 @@
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
     ]
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.{js,vue}": [
